@@ -5,13 +5,13 @@ class OxoBoard:
             temp = []
             for j in range(0,3):
                 temp.append(0)
-            self.append(temp)
+            self.loc.append(temp)
 
     def get_square(self, x, y):
         return self.loc[x][y]
 
     def set_square(self, x, y, mark):
-        if self.loc == 0:
+        if self.loc[x][y] == 0:
             self.loc[x][y]=mark
             return True
         else:
@@ -21,15 +21,18 @@ class OxoBoard:
         for x in range(0,3):
             for y in range(0,3):
                 if not self.loc[x][y] == 0:
-                    return True
-        return False
+                    return False
+        return True
 
     def get_winner(self):
         for x in range(0,3):
-            for y in range(0,3):
-                for win in range(1,3):
-                    if self.loc[x][y] == win and self.loc[x][y] == win and self.loc[x][y] == win:
-                        return win
+            for win in range(1,3):
+                if self.loc[x][0] == win and self.loc[x][1] == win and self.loc[x][2] == win:
+                    return win
+        for y in range(0,3):
+            for win in range(1,3):
+                if self.loc[0][y] == win and self.loc[0][y] == win and self.loc[0][y] == win:
+                    return win
         for win in range(1, 3):
             for i in range(0, 1):
                 if self.loc[2*i][0] == win and self.loc[1][1] == win and self.loc[2-(2*i)][2] == win:
