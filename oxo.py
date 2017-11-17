@@ -1,7 +1,11 @@
+import pygame
+
+
 class OxoBoard:
+    board = [[0 for x in range(0, 3)] for y in range(0, 3)]
+
     def __init__(self):
-        """ The initialiser. Initialise any fields you need here. """
-        raise NotImplementedError("TODO: implement __init__")
+        self.show()
 
     def get_square(self, x, y):
         """ Return 0, 1 or 2 depending on the contents of the specified square. """
@@ -34,3 +38,5 @@ class OxoBoard:
                 # Print a space for empty (0), an O for player 1, or an X for player 2
                 print " OX"[self.get_square(x, y)],
             print
+
+
