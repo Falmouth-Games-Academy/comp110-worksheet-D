@@ -31,7 +31,7 @@ class OxoBoard:
                     return win
         for y in range(0,3):
             for win in range(1,3):
-                if self.loc[0][y] == win and self.loc[0][y] == win and self.loc[0][y] == win:
+                if self.loc[0][y] == win and self.loc[1][y] == win and self.loc[2][y] == win:
                     return win
         for win in range(1, 3):
             for i in range(0, 1):
