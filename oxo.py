@@ -20,9 +20,10 @@ class OxoBoard:
     def is_board_full(self):
         for x in range(0,3):
             for y in range(0,3):
-                if not self.loc[x][y] == 0:
+                if self.loc[x][y] == 0:
                     return False
         return True
+
 
     def get_winner(self):
         for x in range(0,3):
