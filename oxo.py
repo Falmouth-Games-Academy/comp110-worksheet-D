@@ -5,14 +5,14 @@ class OxoBoard:
             1 -> O
             2 -> X
 
-        board_width, board_height -> Board size
         board -> Playable positions
+        board_width, board_height -> Board size
         strike_combinations -> Each position for strike
     """
+    board = {}
+
     board_width = 3
     board_height = 3
-
-    board = {}
 
     strike_combinations = [
         [(0, 0), (1, 0), (2, 0)],
@@ -27,8 +27,13 @@ class OxoBoard:
         [(0, 2), (1, 1), (0, 2)],
     ]
 
-    def __init__(self):
-        """ The initialiser. Initialise any fields you need here. """
+    def __init__(self, width = None, height = None, strikes = None):
+        # Allow the board to be edited on creation
+        self.board_width = width or self.board_width
+        self.board_height = height or self.board_height
+        self.strike_combinations = strikes or self.strike_combinations
+
+        #Generate an empty board
         for x in xrange(self.board_width):
             for y in xrange(self.board_height):
                 self.board[x, y] = 0
@@ -67,7 +72,7 @@ class OxoBoard:
 
             # For each position for strike line
             for element in xrange(parts_for_strike):
-                x, y = line[element][0], line[element][1]
+                x, y = line[element][0], line[element][1] # Get x and y from the current strike combination check
                 if self.board[x, y] == 1: # If O is there
                     o_strike += 1 # Three is a strike
                 elif self.board[x, y] == 2: # If X is there
