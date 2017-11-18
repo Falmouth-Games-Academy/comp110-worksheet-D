@@ -65,25 +65,25 @@ class OxoBoard:
         """ If a player has three in a row, return 1 or 2 depending on which player.
             Otherwise, return 0. """
         for line in self.strike_combinations: # For each strike combination
-            # Assign variables for player 1 and 2 to track how many positions they have for each strike combination
-            o_strike = 0
-            x_strike = 0
             # How many correct positions required in the current strike check to get a strike
             parts_for_strike = len(line)
+            strike_search = self.board[line[0][0], line[0][1]] # The first position for the strike
+            strike_complete = True
+
+            # If the first position for the stike is 0, no point in checking the other positions
+            if strike_search == 0:
+                continue
 
             # For each position for strike line
             for element in xrange(parts_for_strike):
                 x, y = line[element][0], line[element][1] # Get x and y from the current strike combination check
-                if self.board[x, y] == 1: # If O is there
-                    o_strike += 1 # Three is a strike
-                elif self.board[x, y] == 2: # If X is there
-                    x_strike += 1 # Three is a strike
+                if self.board[x, y] != strike_search: # If the next square isn't the same player, break
+                    strike_complete = False
+                    break
 
             # If all positions are satisfied then we have a strike
-            if o_strike >= parts_for_strike:
-                return 1
-            elif x_strike >= parts_for_strike:
-                return 2
+            if strike_complete:
+                return strike_search
 
         return 0
 
