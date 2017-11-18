@@ -1,6 +1,16 @@
 class OxoBoard:
+    """
+        Number representations:
+            0 -> Empty
+            1 -> O
+            2 -> X
 
-    # Empty = 0, O = 1, X = 2
+        board_width, board_height -> Board size
+        board -> Playable positions
+        strike_combinations -> Each position for strike
+    """
+    board_width = 3
+    board_height = 3
 
     board = {}
 
@@ -19,8 +29,8 @@ class OxoBoard:
 
     def __init__(self):
         """ The initialiser. Initialise any fields you need here. """
-        for x in xrange(3):
-            for y in xrange(3):
+        for x in xrange(self.board_width):
+            for y in xrange(self.board_height):
                 self.board[x, y] = 0
 
     def get_square(self, x, y):
@@ -39,8 +49,8 @@ class OxoBoard:
     def is_board_full(self):
         """ If there are still empty squares on the board, return False.
             If there are no empty squares, return True. """
-        for x in xrange(3):
-            for y in xrange(3):
+        for x in xrange(self.board_width):
+            for y in xrange(self.board_height):
                 if self.board[x, y] == 0:
                     return False
         return True
@@ -49,28 +59,34 @@ class OxoBoard:
         """ If a player has three in a row, return 1 or 2 depending on which player.
             Otherwise, return 0. """
         for line in self.strike_combinations: # For each strike combination
+            # Assign variables for player 1 and 2 to track how many positions they have for each strike combination
             o_strike = 0
             x_strike = 0
-            for element in xrange(3): # For each position for strike line
+            # How many correct positions required in the current strike check to get a strike
+            parts_for_strike = len(line)
+
+            # For each position for strike line
+            for element in xrange(parts_for_strike):
                 x, y = line[element][0], line[element][1]
                 if self.board[x, y] == 1: # If O is there
                     o_strike += 1 # Three is a strike
                 elif self.board[x, y] == 2: # If X is there
                     x_strike += 1 # Three is a strike
 
-            if o_strike >= 3:
+            # If all positions are satisfied then we have a strike
+            if o_strike >= parts_for_strike:
                 return 1
-            elif x_strike >= 3:
+            elif x_strike >= parts_for_strike:
                 return 2
 
         return 0
 
     def show(self):
         """ Display the current board state in the terminal. You should not need to edit this. """
-        for y in xrange(3):
+        for y in xrange(self.board_height):
             if y > 0:
                 print "--+---+--"
-            for x in xrange(3):
+            for x in xrange(self.board_width):
                 if x > 0:
                     print '|',
 
