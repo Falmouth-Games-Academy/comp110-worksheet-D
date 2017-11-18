@@ -33,6 +33,10 @@ class OxoBoard:
         self.board_height = height or self.board_height
         self.strike_combinations = strikes or self.strike_combinations
 
+        # Move counter
+        self.total_moves = self.board_width * self.board_height
+        self.current_moves = 0
+
         #Generate an empty board
         for x in xrange(self.board_width):
             for y in xrange(self.board_height):
@@ -47,6 +51,7 @@ class OxoBoard:
             If the square is not empty, leave it as-is and return False. """
         if self.board[x, y] == 0:
             self.board[x, y] = mark
+            self.total_moves += 1
             return True
         else:
             return False
@@ -54,11 +59,7 @@ class OxoBoard:
     def is_board_full(self):
         """ If there are still empty squares on the board, return False.
             If there are no empty squares, return True. """
-        for x in xrange(self.board_width):
-            for y in xrange(self.board_height):
-                if self.board[x, y] == 0:
-                    return False
-        return True
+        return self.current_moves >= self.total_moves
 
     def get_winner(self):
         """ If a player has three in a row, return 1 or 2 depending on which player.
