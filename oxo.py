@@ -51,7 +51,7 @@ class OxoBoard:
             If the square is not empty, leave it as-is and return False. """
         if self.board[x, y] == 0:
             self.board[x, y] = mark
-            self.total_moves += 1
+            self.current_moves += 1
             return True
         else:
             return False
