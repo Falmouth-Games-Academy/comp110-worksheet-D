@@ -24,7 +24,7 @@ class OxoBoard:
         [(2, 0), (2, 1), (2, 2)],
 
         [(0, 0), (1, 1), (2, 2)],
-        [(0, 2), (1, 1), (0, 2)],
+        [(2, 0), (1, 1), (0, 2)],
     ]
 
     def __init__(self, width = None, height = None, strikes = None):
@@ -65,14 +65,15 @@ class OxoBoard:
         """ If a player has three in a row, return 1 or 2 depending on which player.
             Otherwise, return 0. """
         for line in self.strike_combinations: # For each strike combination
-            # How many correct positions required in the current strike check to get a strike
-            parts_for_strike = len(line)
             strike_search = self.board[line[0][0], line[0][1]] # The first position for the strike
-            strike_complete = True
 
             # If the first position for the stike is 0, no point in checking the other positions
             if strike_search == 0:
                 continue
+
+            # How many correct positions required in the current strike check to get a strike
+            parts_for_strike = len(line)
+            strike_complete = True
 
             # For each position for strike line
             for element in xrange(parts_for_strike):
