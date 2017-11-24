@@ -11,9 +11,11 @@ class OxoBoard:
     winning_row_length = 3  # number of Xs or Os in a row to win
 
     def __init__(self, num_rows=3, num_cols=3, winning_row_length=3):
-        """ The initialiser. num_rows and num_cols specify grid size.
-            winning_row_length specifies the length of Xs or Os in a row
-            required to win.
+        """ The initialiser.
+        Args:
+            num_rows: number of rows on the grid (y size)
+            num_cols: number of columns of the grid (x size)
+            winning_row_length: the number of Xs or Os in a row to win
             """
         self.num_rows = num_rows
         self.num_cols = num_cols
@@ -45,7 +47,7 @@ class OxoBoard:
         return True
 
     def get_winner(self):
-        """ If a player has three in a row, return 1 or 2 depending on which player.
+        """ If a player has [winning_row_length] in a row, return 1 or 2 depending on which player.
             Otherwise, return 0. """
         # Declare a search direction list, representing up-right, right,
         # down-right and down directions in xy tuples
@@ -65,7 +67,7 @@ class OxoBoard:
                         pos_x = x + dir_xy[dir_id][0] * p
                         pos_y = y + dir_xy[dir_id][1] * p
 
-                        if pos_x >= self.num_cols or pos_y >= self.num_rows or\
+                        if pos_x >= self.num_cols or pos_y >= self.num_rows or \
                             pos_x < 0 or pos_y < 0:
                             break
 
