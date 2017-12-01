@@ -1,10 +1,17 @@
+
 class OxoBoard:
     def __init__(self):
         """ The initialiser. Initialise any fields you need here. """
-        raise NotImplementedError("TODO: implement __init__")
+
+        """These variables will set the height/width of the board and the condition to win"""
+        self.t_height = 3
+        self.cond_win = 3
+        self.t_width = 3
 
     def get_square(self, x, y):
         """ Return 0, 1 or 2 depending on the contents of the specified square. """
+
+
         raise NotImplementedError("TODO: implement get_square")
 
     def set_square(self, x, y, mark):
