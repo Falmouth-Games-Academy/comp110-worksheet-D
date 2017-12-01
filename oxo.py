@@ -1,10 +1,27 @@
+class Tiles:
+    NONE = 0
+    Crosses = 1
+    Naughts = 2
+
 class OxoBoard:
     def __init__(self):
         """ The initialiser. Initialise any fields you need here. """
+        import play
+        play.draw_board()
+        play.check_game_over()
+
+    grid = 0
+    rows_n = 3
+    columns_n = 3
+    winning_row = 3
+
+
         raise NotImplementedError("TODO: implement __init__")
 
     def get_square(self, x, y):
         """ Return 0, 1 or 2 depending on the contents of the specified square. """
+        return self.grid[x][y]
+
         raise NotImplementedError("TODO: implement get_square")
 
     def set_square(self, x, y, mark):
