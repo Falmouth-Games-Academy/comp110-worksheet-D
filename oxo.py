@@ -1,10 +1,10 @@
 class OxoBoard:
 
-    def __init__(self, grid_width, grid_height, win_length):
-        self.grid_width = grid_width  # Stores number of columns in class
-        self.grid_height = grid_height  # Stores number of rows in class
-        self.win_length = win_length  # Stores win_length in class
-        self.board = [[0 for x in xrange(0, grid_width)] for y in xrange(0, grid_height)]
+    def __init__(self):
+        self.grid_width = 3  # Stores number of columns in class
+        self.grid_height = 3  # Stores number of rows in class
+        self.win_length = 3  # Stores win_length in class
+        self.board = [[0 for x in xrange(0, self.grid_width)] for y in xrange(0, self.grid_height)]
         # Sets a list to hold the board state
         self.show()
 
