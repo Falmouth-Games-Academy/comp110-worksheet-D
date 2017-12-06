@@ -2,6 +2,7 @@ class OxoBoard:
 
     def __init__(self):
         """ The initialiser. Initialise any fields you need here. """
+        self.number_to_win_for = 3
         self.rows = 3
         self.cols = 3
 
@@ -46,12 +47,26 @@ class OxoBoard:
     def get_winner(self):
         """ If a player has three in a row, return 1 or 2 depending on which player.
             Otherwise, return 0. """
-        number_to_win_for = 3
 
         p1_Count = 0
         p2_Count = 0
         hRow = 0
         vRow = 0
+
+        # check rows
+        for row in self.board:
+            for item in row:
+                if item == 1:
+                    p1_Count += 1
+                elif item == 2:
+                    p2_Count += 1
+            if p1_Count == self.number_to_win_for:
+                return 1
+            elif p2_Count == self.number_to_win_for:
+                return 2
+            else:
+                p1_Count = 0
+                p2_Count = 0
 
         # do 3 checks
         for i in range(3):
@@ -60,21 +75,17 @@ class OxoBoard:
             for row in self.board:
                 if row[hRow] == 1:
                     p1_Count += 1
-                    print "P1:", p1_Count
                 elif row[hRow] == 2:
                     p2_Count += 1
-                    print "P2:", p2_Count
 
-            if p1_Count == number_to_win_for:
+            if p1_Count == self.number_to_win_for:
                 return 1
-            elif p2_Count == number_to_win_for:
+            elif p2_Count == self.number_to_win_for:
                 return 2
             else:
                 p1_Count = 0
                 p2_Count = 0
                 hRow += 1
-                print hRow
-
 
         return 0
 
