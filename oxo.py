@@ -1,6 +1,3 @@
-import pygame
-
-
 class OxoBoard:
 
     def __init__(self, grid_width, grid_height, win_length):
