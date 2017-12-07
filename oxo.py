@@ -64,6 +64,8 @@ class OxoBoard:
             for y in self.board[1]:
                 if self.board[x][y] == 0:
                     return False
+                else:
+                    return True
 
         #raise NotImplementedError("TODO: implement is_board_full")
 
