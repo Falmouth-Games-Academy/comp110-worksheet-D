@@ -4,77 +4,21 @@ class OxoBoard:
     board = []
     player = 0
 
-    # <editor-fold desc="Win conditions for player 1 (wins1)">
+    winning_boards = [
+                      # Horizontal wins
+                      [0, 1, 2],
+                      [3, 4, 5],
+                      [6, 7, 8],
 
-    # Possible wins
-    wins1 = [[[1, 1, 1],
-              [0, 0, 0],
-              [0, 0, 0]],
+                      # Vertical wins
+                      [0, 3, 6],
+                      [1, 4, 7],
+                      [2, 5, 8],
 
-             [[0, 0, 0],
-              [1, 1, 1],
-              [0, 0, 0]],
-
-             [[0, 0, 0],
-              [0, 0, 0],
-              [1, 1, 1]],
-
-             [[1, 0, 0],
-              [1, 0, 0],
-              [1, 0, 0]],
-
-             [[0, 1, 0],
-              [0, 1, 0],
-              [0, 1, 0]],
-
-             [[0, 0, 1],
-              [0, 0, 1],
-              [0, 0, 1]],
-
-             [[1, 0, 0],
-              [0, 1, 0],
-              [0, 0, 1]],
-
-             [[0, 0, 1],
-              [0, 1, 0],
-              [1, 0, 0]]]
-    # </editor-fold>
-
-    # <editor-fold desc="Win conditions for player 2 (wins2)">
-
-    # Possible wins
-    wins2 = [[[2, 2, 2],
-             [0, 0, 0],
-             [0, 0, 0]],
-
-            [[0, 0, 0],
-             [2, 2, 2],
-             [0, 0, 0]],
-
-            [[0, 0, 0],
-             [0, 0, 0],
-             [2, 2, 2]],
-
-            [[2, 0, 0],
-             [2, 0, 0],
-             [2, 0, 0]],
-
-            [[0, 2, 0],
-             [0, 2, 0],
-             [0, 2, 0]],
-
-            [[0, 0, 2],
-             [0, 0, 2],
-             [0, 0, 2]],
-
-            [[2, 0, 0],
-             [0, 2, 0],
-             [0, 0, 2]],
-
-            [[0, 0, 2],
-             [0, 2, 0],
-             [2, 0, 0]]]
-    # </editor-fold>
+                      # Diagonal wins
+                      [0, 4, 8],
+                      [6, 4, 2]
+                     ]
 
     def __init__(self):
         """ The initialiser. Initialise any fields you need here. """
@@ -123,46 +67,90 @@ class OxoBoard:
 
         #raise NotImplementedError("TODO: implement is_board_full")
 
-    def check_lines(self, x, y):
+    def collect_positions(self, player):
+        """Collects all the positions owned by a player
 
-        for x in range(x, ):
-            pass
+        Args:
+            player (int): The player to check positions of.
+
+        Returns:
+            played_spaces (list of int): A list of the spaces owned by the specified player in the format: 0, 1...8 (Right to left, top to bottom).
+        """
+
+        played_spaces = []
+
+        for x in range(0, 3):
+            for y in range(0, 3):
+                if self.board[x][y] == player:
+                    position = [x, y]
+
+                    played_spaces.append(self.convert_to_1d_index(position, 3))
+
+        return played_spaces
+
+    def convert_to_1d_index(self, index, height):
+        """
+        Convert the indexes of a 2d array into a single index for a 1d array. Used to convert the x, y of board space into a single position.
+
+        Args:
+            index (list of int): The x, y indexes stored in a list.
+            height (int): The y dimension of the 2d array.
+
+        Returns:
+            new_index (int): The new index for a 1d array.
+        """
+
+        x = index[0]
+        y = index[1]
+
+        new_index = x + (y * height)
+        return new_index
+
+    def compare_lists(self, master_list, list_to_compare):
+        """
+        Check to see if a master list contains all the same items as the list being compared.
+
+        Args:
+            master_list (list): The main list.
+            list_to_compare (list): The list to compare to master.
+
+        Returns:
+            (bool): The result of a set comparison. True if master_list contains all elements in list_to_compare.
+        """
+
+        return set(list_to_compare) <= set(master_list)
+
+    def evaluate_board(self, player):
+        """
+        Evaluates the game board to see how many wins a given player has.
+
+        Args:
+            player (int); The player to evaluate for.
+
+        Returns:
+            number_of_wins (int): The number of wins the player has.
+        """
+
+        number_of_wins = 0
+        played_spaces = self.collect_positions(player)
+
+        for i in range (0, 8):
+            if self.compare_lists(played_spaces, self.winning_boards[i]) == True:
+                number_of_wins += 1
+
+        return number_of_wins
 
     def get_winner(self):
         """
         If a player has three in a row, return 1 or 2 depending on which player.
         Otherwise, return 0.
         """
-        print("Player being checked = " + str(self.player))
-        print(str(self.board[0]) + "\n" + str(self.board[1]) + "\n" + str(self.board[2]))
 
-        # returns false because 0's are not 0's!!!!
-
-        if self.player == 1:
-            for i in range(0, 8):
-                print("Checking win no. " + str(i))
-
-                # print(str(self.wins1[0]) + "\n" + str(self.wins1[1]) + "\n" + str(self.wins1[2]))
-                if self.board == self.wins1[i]:
-                    return 1
-
-        elif self.player == 2:
-            for i in range(0, 8):
-                print("Checking win no. " + str(i))
-
-                # print(str(self.wins2[0]) + "\n" + str(self.wins2[1]) + "\n" + str(self.wins2[2]))
-                if self.board == self.wins2[i]:
-                    return 2
-
-        else:
-            print("Player not set correctly.")
-
+        if self.evaluate_board(self.player) >= 1:
+            return self.player
 
         return 0
         # raise NotImplementedError("TODO: implement get_winner")
-
-
-
 
     def show(self):
         """ Display the current board state in the terminal. You should not need to edit this. """
@@ -179,6 +167,7 @@ class OxoBoard:
                 print " OX"[self.get_square(x, y)],
             print
 
+
 """
 
 test_board = OxoBoard()
@@ -190,7 +179,7 @@ test_board.set_square(2, 0, 2)
 print(str(test_board.wins1[3]))
 
 # Print out board
-print(str(test_board.board[0]) + "\n" + str(test_board.board[1]) + "\n" + str(test_board.board[2]))
+print(str(test_board.board[0]) + "" + str(test_board.board[1]) + "" + str(test_board.board[2]))
 
 print("winner is player " + str(test_board.get_winner()))
 
