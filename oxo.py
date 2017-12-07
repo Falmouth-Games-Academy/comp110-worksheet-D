@@ -1,6 +1,14 @@
 class OxoBoard:
+    """
+    Game board class.
 
-    # The gameboard state
+    Attributes:
+        board (list of list of int): The gameboard.
+        player (int): The player who is currently playing.
+        winning_boards (list of list of int): The possible winning board states. Note that the numbers represent the
+                                              player's positions in the board as 0 - 8 (top to bottom, left to right).
+    """
+
     board = []
     player = 0
 
@@ -23,7 +31,7 @@ class OxoBoard:
     def __init__(self):
         """ The initialiser. Initialise any fields you need here. """
 
-        # Board is so small its simpler to manually declare it
+        # Board is so small it's simpler to manually declare it.
         self.board = [[0, 0, 0],
                       [0, 0, 0],
                       [0, 0, 0]]
@@ -31,6 +39,13 @@ class OxoBoard:
     def get_square(self, x, y):
         """
         Return 0, 1 or 2 depending on the contents of the specified square.
+
+        Args:
+            x (int): The x position of the square.
+            y (int): The y position of the square.
+
+        Returns:
+            int: The value of the game board at position x, y.
         """
 
         return self.board[x][y]
@@ -41,11 +56,15 @@ class OxoBoard:
         """
         If the specified square is currently empty (0), fill it with mark and return True.
         If the square is not empty, leave it as-is and return False.
-        """
 
-        # TODO Check how x and y are passed. If the are 1-3 instead of 0-2, subtract 1 from x and y.
-       #x = 3 - x
-        #y = 3 - y
+        Args:
+            x (int): x position to place mark.
+            y (int): y position to place mark.
+            mark (int): The player's mark to place.
+
+        Return:
+            bool: True if square is empty and mark is placed. False if square is filled already.
+        """
 
         if self.board[x][y] == 0:
             self.board[x][y] = mark
@@ -58,16 +77,17 @@ class OxoBoard:
         """
         If there are still empty squares on the board, return False.
         If there are no empty squares, return True.
+
+        Returns:
+            bool: False is board is not yet full. True if board is full.
         """
 
         for x in self.board[0]:
             for y in self.board[1]:
                 if self.board[x][y] == 0:
                     return False
-                           
-        return True
 
-        #raise NotImplementedError("TODO: implement is_board_full")
+        return True
 
     def collect_positions(self, player):
         """Collects all the positions owned by a player
@@ -146,13 +166,15 @@ class OxoBoard:
         """
         If a player has three in a row, return 1 or 2 depending on which player.
         Otherwise, return 0.
+
+        Returns:
+            int: The winning player if one is found, otherwise 0.
         """
 
         if self.evaluate_board(self.player) >= 1:
             return self.player
 
         return 0
-        # raise NotImplementedError("TODO: implement get_winner")
 
     def show(self):
         """ Display the current board state in the terminal. You should not need to edit this. """
@@ -168,32 +190,3 @@ class OxoBoard:
                 # Print a space for empty (0), an O for player 1, or an X for player 2
                 print " OX"[self.get_square(x, y)],
             print
-
-
-"""
-
-test_board = OxoBoard()
-
-test_board.set_square(0, 0, 2)
-test_board.set_square(1, 0, 2)
-test_board.set_square(2, 0, 2)
-
-print(str(test_board.wins1[3]))
-
-# Print out board
-print(str(test_board.board[0]) + "" + str(test_board.board[1]) + "" + str(test_board.board[2]))
-
-print("winner is player " + str(test_board.get_winner()))
-
-
-
-# print(str(zip(test_board.board, test_board.wins[0])[0]))
-
-# print(str(test_board.get_winner()))
-
-
-# print(str(test_board.is_board_full()))
-# print(str(test_board.get_square(1, 1)))
-"""
-
-
