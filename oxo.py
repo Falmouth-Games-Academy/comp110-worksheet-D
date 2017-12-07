@@ -2,7 +2,9 @@ class OxoBoard:
     def __init__(self):
         """ The initialiser. Initialise any fields you need here. """
         raise NotImplementedError("TODO: implement __init__")
-        self.board = [[0,0,0][0,0,0][0,0,0]]
+        self.board = [[0, 0, 0],
+                      [0, 0, 0],
+                      [0, 0, 0]]
         self.col = len(self.board)
         self.row = len(self.board[0])
 
@@ -26,8 +28,8 @@ class OxoBoard:
         """ If there are still empty squares on the board, return False.
             If there are no empty squares, return True. """
         raise NotImplementedError("TODO: implement is_board_full")
-        for x in range(0,self.row):
-            for y in range(0,self.col):
+        for y in xrange(0, self.row):
+            for x in xrange(0, self.col):
                 if self.board[x][y] == 0:
                     return False
         return True
@@ -41,7 +43,21 @@ class OxoBoard:
             Otherwise, return 0. """
         raise NotImplementedError("TODO: implement get_winner")
 
+        for x in xrange(0, self.row):
+            if (self.board[x][0] == 1 and self.board[x][1] == 1 and self.board[x][2] == 1) or (self.board[0][x] == 1 and self.board[1][x] == 1 and self.board[2][x] == 1):
+                return 1
 
+        if (self.board[0][0] == 1 and self.board[1][1] == 1 and self.board[2][2] == 1) or (self.board[2][0] == 1 and self.board[1][1] == 1 and self.board[0][2] == 1):
+            return 1
+
+        for x in range(0, self.row):
+            if (self.board[x][0] == 2 and self.board[x][1] == 2 and self.board[x][2] == 2) or (self.board[0][x] == 2 and self.board[1][x] == 2 and self.board[2][x] == 2):
+                return 2
+
+        if (self.board[0][0] == 2 and self.board[1][1] == 2 and self.board[2][2] == 2) or (self.board[2][0] == 2 and self.board[1][1] == 2 and self.board[0][2] == 2):
+            return 2
+
+        return 0
 
 
     def show(self):
