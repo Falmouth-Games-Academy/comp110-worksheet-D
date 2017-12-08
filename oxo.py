@@ -7,6 +7,10 @@ class OxoBoard:
         self.t_height = 3
         self.cond_win = 3
         self.t_width = 3
+    
+        for x in xrange(3):
+ +            for y in xrange(3):
+ +                self.board[x,y] = 0
 
     def get_square(self, x, y):
         """ Return 0, 1 or 2 depending on the contents of the specified square. """
