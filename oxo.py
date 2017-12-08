@@ -7,8 +7,8 @@ class OxoBoard:
         self.board = [[0 for x in xrange(0, self.grid_width)] for y in xrange(0, self.grid_height)]
         # Sets a list to hold the board state
         self.show()
-        self.last_x = None
-        self.last_y = None
+        self.last_x = 0
+        self.last_y = 0
 
     def get_square(self, x, y):
         """ Return 0, 1 or 2 depending on the contents of the specified square. """
