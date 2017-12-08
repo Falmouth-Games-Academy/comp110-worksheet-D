@@ -35,7 +35,7 @@ class OxoBoard:
                 if self.loc[0][y] == win and self.loc[1][y] == win and self.loc[2][y] == win:
                     return win
         for win in range(1, 3):
-            for i in range(0, 1):
+            for i in range(0, 2):
                 if self.loc[2*i][0] == win and self.loc[1][1] == win and self.loc[2-(2*i)][2] == win:
                     return win
         return 0
