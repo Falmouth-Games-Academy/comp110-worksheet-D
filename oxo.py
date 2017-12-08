@@ -1,6 +1,6 @@
 class OxoBoard:
-    loc = [] # locations on
     def __init__(self):
+        self.loc = []
         """Fills Board loc with 0"""
         for i in range(0,3):
             temp = []
