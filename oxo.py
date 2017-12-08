@@ -1,7 +1,7 @@
 class OxoTile:
     EMPTY = 0
-    X = 1
-    O = 2
+    O = 1
+    X = 2
 
 
 class OxoBoard:
@@ -39,7 +39,6 @@ class OxoBoard:
         else:
             return False
 
-
     def is_board_full(self):
         """ If there are still empty squares on the board, return False.
             If there are no empty squares, return True.
@@ -54,34 +53,35 @@ class OxoBoard:
         # Declare a search direction list, representing the XY offsets of
         # up-right, right, down-right and down directions. These are the
         # directions we'll search the grid along for matching O's or X's
-        dir_xy = [(1, 0), (1, 1), (1, -1), (0, 1)]
+        dir_xy_offsets = [(1, 0), (1, 1), (1, -1), (0, 1)]
 
-        # Iterate through all squares in the grid
-        for x in xrange(0, self.num_cols):
-            for y in xrange(0, self.num_rows):
-                compare_type = self.grid[x][y]
+        # Iterate through all squares in the grid and search each possible line direction
+        for start_x in xrange(0, self.num_cols):
+            for start_y in xrange(0, self.num_rows):
+                compare_type = self.grid[start_x][start_y]
 
                 # Don't search along empty tiles
                 if compare_type == OxoTile.EMPTY:
                     continue
 
                 # Search along the four directions to see if there's a valid row
-                for dir_id in xrange(0, 4):
-                    for p in xrange(1, self.winning_row_length):
+                for offset in dir_xy_offsets:
+                    for step in xrange(1, self.winning_row_length):
                         # Step
-                        pos_x = x + dir_xy[dir_id][0] * p
-                        pos_y = y + dir_xy[dir_id][1] * p
+                        current_x = start_x + offset[0] * step
+                        current_y = start_y + offset[1] * step
 
                         # Don't go past the border!
-                        if pos_x >= self.num_cols or pos_y >= self.num_rows or pos_y < 0:
+                        if current_x >= self.num_cols or current_y >= self.num_rows or \
+                                current_y < 0:
                             break
 
                         # If this square dares to be different, this isn't a winner
-                        if self.grid[pos_x][pos_y] is not compare_type:
+                        if self.grid[current_x][current_y] is not compare_type:
                             break
 
                         # If we found winning_row_length matching squares along this line, we won!
-                        if p == self.winning_row_length - 1:
+                        if step == self.winning_row_length - 1:
                             return compare_type  # This is the winner!
 
         return 0
