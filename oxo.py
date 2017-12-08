@@ -2,7 +2,8 @@ class OxoBoard:
     #BoardWidth = 3
     #BoardHeight = 3
     #BoardSquares = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
-    GameBoard = [[0 for x in range(3)] for y in range(3)]
+    def __init__(self):
+        self.GameBoard = [[0 for x in range(3)] for y in range(3)]
 
 
     def get_square(self, x, y):
