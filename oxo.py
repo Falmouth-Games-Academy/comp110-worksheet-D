@@ -33,11 +33,12 @@ class OxoBoard:
         """ If the specified square is currently empty (0), fill it with mark and return True.
             If the square is not empty, leave it as-is and return False.
         """
-        if self.grid[x][y] is not OxoTile.EMPTY:
+        if self.grid[x][y] is OxoTile.EMPTY:
+            self.grid[x][y] = mark
+            return True
+        else:
             return False
 
-        self.grid[x][y] = mark
-        return True
 
     def is_board_full(self):
         """ If there are still empty squares on the board, return False.
