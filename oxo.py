@@ -5,7 +5,7 @@ class OxoBoard:
 
     def __init__(self):
         # Create a matrix to identify the board positions, all set to 0 at the start.
-        self.matrix = [[0,0,0],[0,0,0],[0,0,0]]
+        self.matrix = [[0] * self.board_width for rows in xrange(self.board_height)]
 
     def get_square(self, x, y):
         # Returns the position on the board using indexing,
@@ -32,38 +32,35 @@ class OxoBoard:
 
     def get_winner(self):
         """ Visual representation to help with the indexing to compare
-        board positions.
-        0 [0, 1, 2]
-        1 [0, 1, 2]
-        1 [0, 1, 2]
+        board positions.           y  y  y
+        0 [0, 1, 2]             x [0, 0, 0]
+        1 [0, 1, 2]      =      x [0, 0, 0]
+        1 [0, 1, 2]             x [0, 0, 0]
         """
 
-        # Checks if there is a winning combination for player 1 by comparing
-        # the values on the board to each winning combination.
-        if (self.matrix[0][0] == self.matrix[1][0] == self.matrix[2][0] == 1) or \
-                (self.matrix[0][1] == self.matrix[1][1] == self.matrix[2][1] == 1) or \
-                (self.matrix[0][2] == self.matrix[1][2] == self.matrix[2][2] == 1) or \
-                (self.matrix[0][0] == self.matrix[0][1] == self.matrix[0][2] == 1) or \
-                (self.matrix[1][0] == self.matrix[1][1] == self.matrix[1][2] == 1) or \
-                (self.matrix[2][0] == self.matrix[2][1] == self.matrix[2][2] == 1) or \
-                (self.matrix[0][0] == self.matrix[1][1] == self.matrix[2][2] == 1) or \
-                (self.matrix[0][2] == self.matrix[1][1] == self.matrix[2][0] == 1):
-            return 1
-
-        # Checks if there is a winning combination for player 2 by comparing
-        # the values on the board to each winning combination.
-        if (self.matrix[0][0] == self.matrix[1][0] == self.matrix[2][0] == 2) or \
-                (self.matrix[0][1] == self.matrix[1][1] == self.matrix[2][1] == 2) or \
-                (self.matrix[0][2] == self.matrix[1][2] == self.matrix[2][2] == 2) or \
-                (self.matrix[0][0] == self.matrix[0][1] == self.matrix[0][2] == 2) or \
-                (self.matrix[1][0] == self.matrix[1][1] == self.matrix[1][2] == 2) or \
-                (self.matrix[2][0] == self.matrix[2][1] == self.matrix[2][2] == 2) or \
-                (self.matrix[0][0] == self.matrix[1][1] == self.matrix[2][2] == 2) or \
-                (self.matrix[0][2] == self.matrix[1][1] == self.matrix[2][0] == 2):
-            return 2
-
-        else:
-            return 0
+        # This checks for both players board mark positions.
+        for winner in xrange(1, 3):
+            # This checks each row.
+            for x in xrange(0, self.board_width):
+                # This checks if the horizontal positions on the board have the
+                # players mark in every position in that row.
+                if (self.matrix[x][0] == winner) and (self.matrix[x][1] == winner)\
+                        and (self.matrix[x][2] == winner):
+                    return winner
+            # This does the same as above but with each column instead of row.
+            for y in xrange(0,self.board_height):
+                if (self.matrix[0][y] == winner) and (self.matrix[1][y] == winner) \
+                        and (self.matrix[2][y] == winner):
+                    return winner
+            # These IF statements check the diagonal positions for the players
+            # marks to check for a win.
+            if (self.matrix[0][0] == winner) and (self.matrix[1][1] == winner) \
+                    and (self.matrix[2][2] == winner):
+                return winner
+            if (self.matrix[2][0] == winner) and (self.matrix[1][1] == winner) \
+                    and (self.matrix[0][2] == winner):
+                return winner
+        return 0
 
 
     def show(self):
