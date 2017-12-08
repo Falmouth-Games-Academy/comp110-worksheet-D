@@ -3,8 +3,9 @@ class OxoBoard:
 
     def __init__(self):
         """ The initialiser. Initialise any fields you need here. """
-        self.tile_width = 3
-        self.tile_height = 3
+        self.tile_width = 3  # Width of the game board in tile (squares)
+        self.tile_height = 3  # Height of the game board in tile (squares)
+        self.winning_condition = 3  # Same marks in a row in order to win
         self.tile = [[0 for y in range(self.tile_width)]
                      for x in xrange(self.tile_height)]
 
@@ -26,6 +27,7 @@ class OxoBoard:
             If there are no empty squares, return True. """
         for x in xrange(self.tile_width):
             for y in xrange(self.tile_height):
+
                 if self.tile[x][y] == self.empty:
                     return False
 
@@ -34,36 +36,45 @@ class OxoBoard:
     def get_winner(self):
         """ If a player has three in a row, return 1 or 2 depending on which player.
             Otherwise, return 0. """
-        for i in xrange(3):
-            for j in xrange(3):
-                compare = self.tile[i][j]
+        for x in xrange(self.tile_width):
+            for y in xrange(self.tile_height):
 
-                if compare == self.empty:
+                # Checks if there are still empty tiles
+                # If there are - continue the loop
+                if self.tile[x][y] == self.empty:
                     continue
 
+                # Loops through 4 different direction to determine
+                # whether a player has reached 3 in a row (winning condition)
                 for vector in [(1, 0), (1, 1), (0, 1), (-1, 1)]:
                     try:
-                        box_to_check = [i, j]
-                        char_to_check_for = self.tile[i][j]
-                        for x in range(1, 3):
-                            box_to_check[0] += vector[0]
-                            box_to_check[1] += vector[1]
+                        tile_to_check = [x, y]
+                        mark_to_check_for = self.tile[x][y]
 
-                            if self.tile[box_to_check[0]][box_to_check[1]] != char_to_check_for:
+                        for i in range(1, self.winning_condition):
+                            tile_to_check[0] += vector[0]
+                            tile_to_check[1] += vector[1]
+
+                            # Checks tiles to prevent unfair winning
+                            if self.tile[tile_to_check[0]][tile_to_check[1]]\
+                                    != mark_to_check_for:
                                 break
 
-                            if box_to_check[0] >= self.tile_width or\
-                                    box_to_check[1] >= self.tile_height or\
-                                    box_to_check[0] < 0 or\
-                                    box_to_check[1] < 0:
+                            # Checks tiles to prevent unfair winning
+                            if tile_to_check[0] >= self.tile_width or\
+                                    tile_to_check[1] >= self.tile_height or\
+                                    tile_to_check[0] < 0 or\
+                                    tile_to_check[1] < 0:
                                 break
 
-                            if x == 2:
-                                return compare
+                            # Returns number of a winner (1 or 2)
+                            if i == (self.winning_condition - 1):
+                                return self.tile[x][y]
 
                     except:
                         continue
 
+        # If nothing of above happened - returns 0 (draw)
         return 0
 
     def show(self):
