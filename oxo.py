@@ -7,6 +7,8 @@ class OxoBoard:
         self.board = [[0 for x in xrange(0, self.grid_width)] for y in xrange(0, self.grid_height)]
         # Sets a list to hold the board state
         self.show()
+        self.last_x = None
+        self.last_y = None
 
     def get_square(self, x, y):
         """ Return 0, 1 or 2 depending on the contents of the specified square. """
@@ -16,6 +18,8 @@ class OxoBoard:
         """ If the specified square is currently empty (0), fill it with mark and return True.
             If the square is not empty, leave it as-is and return False. """
         if self.board[x][y] == 0:
+            self.last_x = x
+            self.last_y = y
             self.board[x][y] = mark  # Sets current square to the given mark
             return True
         else:
@@ -34,32 +38,30 @@ class OxoBoard:
 
     def get_winner(self):
         """ If a player has three in a row, return 1 or 2 depending on which player.
-            Otherwise, return 0. This function was inspired by Louis as I was a bit stuck"""
-        check_direction = [(1, 0), (1, 1), (1, -1), (0, 1)]  # Used to check right, down right, up right, and down
-        for x in xrange(0, self.grid_width):
-            for y in xrange(0, self.grid_height):
-                current_item = self.board[x][y]  # Item on the board we will be checking if the others match
+            Otherwise, return 0. This function was inspired by Louis as I was a bit stuck, but i have changed it
+            to check all positions from the last placed item"""
+        check_direction = [(1, 0), (1, 1), (1, -1), (0, 1), (0, -1), (-1, -1), (-1, 0), (1, -1)]  # Used to check right,
+        #  down right, up right, down, up, up left, left and down left
+        current_item = self.board[self.last_x][self.last_y]  # Item on the board we will be checking if the others match
+        direction_length = len(check_direction)  # Gets length of check_direction list
 
-                if current_item == 0:  # If empty move on to the next square
-                    continue
+        for i in xrange(0, direction_length):  # For each given direction check to see if it matches,
+            # then continue in that direction until no match or matches = win_length
+            matches = 0  # Used to check number of matches resets when the check starts again
+            for p in xrange(1, self.win_length):
+                pos_x = self.last_x + check_direction[i][0] * p  # Gives x position moving relative to p
+                pos_y = self.last_y + check_direction[i][1] * p  # Gives y position moving relative to p
+                matches += 1  # Increases for each match
 
-                for i in xrange(0, 4):  # For each given direction check to see if it matches,
-                    # then continue in that direction until no match or matches = win_length
-                    matches = 0  # Used to check number of matches resets when the check starts again
-                    for p in xrange(1, self.win_length):
-                        pos_x = x + check_direction[i][0] * p  # Gives x position moving relative to p
-                        pos_y = y + check_direction[i][1] * p  # Gives y position moving relative to p
-                        matches += 1  # Increases for each match
+                if pos_x < 0 or pos_y < 0 or pos_x >= self.grid_width or pos_y >= self.grid_height:
+                    break  # Break if outside of the list range
 
-                        if pos_x < 0 or pos_y < 0 or pos_x >= self.grid_width or pos_y >= self.grid_height:
-                            break  # Break if outside of the list range
+                if self.board[pos_x][pos_y] != current_item:
+                    break  # Break if items don't match
 
-                        if self.board[pos_x][pos_y] != current_item:
-                            break  # Break if items don't match
-
-                        if matches == self.win_length - 1:
-                            # If enough items match in line to equal the win length return the winner
-                            return current_item
+                if matches == self.win_length - 1:
+                    # If enough items match in line to equal the win length return the winner
+                    return current_item
         return 0  # If no winner return 0
 
     def show(self):
