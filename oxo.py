@@ -4,17 +4,14 @@ class OxoBoard:
         """ The initialiser. Initialise any fields you need here. """
 
         """These variables will set the height/width of the board and the condition to win"""
-        self.t_height = 3
-        self.cond_win = 3
-        self.t_width = 3
-    
-        for x in xrange(3):
- +            for y in xrange(3):
- +                self.board[x,y] = 0
+        self.oxoboard = [[0, 0, 0],
+                         [0, 0, 0],
+                         [0, 0, 0]]
 
     def get_square(self, x, y):
         """ Return 0, 1 or 2 depending on the contents of the specified square. """
-
+            """ This takes the x and y co-ordinates and returns them based on the board positions """
+            return self.oxoboard[x][y]
 
         raise NotImplementedError("TODO: implement get_square")
 
@@ -25,7 +22,12 @@ class OxoBoard:
 
     def is_board_full(self):
         """ If there are still empty squares on the board, return False.
-            If there are no empty squares, return True. """
+            If there are no empty squares, return True. ""
+          
+        for y in xrange(0, self.row):
+              for x in xrange(0, self.col):
+                  if self.board[x][y] == 0:
+                  
         raise NotImplementedError("TODO: implement is_board_full")
 
     def get_winner(self):
