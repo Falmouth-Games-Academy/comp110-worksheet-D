@@ -16,10 +16,13 @@ class OxoBoard:
             num_rows: number of rows on the grid (y size)
             num_cols: number of columns of the grid (x size)
             winning_row_length: the number of Xs or Os in a row to win
-            """
+        """
+        # Initialise variables
         self.num_rows = num_rows
         self.num_cols = num_cols
         self.winning_row_length = winning_row_length
+
+        # Create the 2-dimensional array for the grid of squares
         self.grid = [[0 for y in xrange(self.num_rows)] for x in xrange(self.num_cols)]
 
     def get_square(self, x, y):
@@ -28,7 +31,8 @@ class OxoBoard:
 
     def set_square(self, x, y, mark):
         """ If the specified square is currently empty (0), fill it with mark and return True.
-            If the square is not empty, leave it as-is and return False. """
+            If the square is not empty, leave it as-is and return False.
+        """
         if self.grid[x][y] is not OxoTile.EMPTY:
             return False
 
@@ -37,44 +41,47 @@ class OxoBoard:
 
     def is_board_full(self):
         """ If there are still empty squares on the board, return False.
-            If there are no empty squares, return True. """
-        # Loop through all tiles and return False if an empty one is found
-        for x in xrange(0, self.num_cols):
-            for y in xrange(0, self.num_rows):
-                if self.grid[x][y] == OxoTile.EMPTY:
-                    return False
-
-        return True
+            If there are no empty squares, return True.
+        """
+        # Return whether an empty square was (not!) found in any of the grid's column arrays
+        return not any(OxoTile.EMPTY in column for column in self.grid)
 
     def get_winner(self):
         """ If a player has [winning_row_length] in a row, return 1 or 2 depending on which player.
-            Otherwise, return 0. """
-        # Declare a search direction list, representing up-right, right,
-        # down-right and down directions in xy tuples
+            Otherwise, return 0.
+        """
+        # Declare a search direction list, representing the XY offsets of
+        # up-right, right, down-right and down directions. These are the
+        # directions we'll search the grid along for matching O's or X's
         dir_xy = [(1, 0), (1, 1), (1, -1), (0, 1)]
 
-        # Iterate through all items in list
+        # Iterate through all squares in the grid
         for x in xrange(0, self.num_cols):
             for y in xrange(0, self.num_rows):
                 compare_type = self.grid[x][y]
 
+                # Don't search along empty tiles
                 if compare_type == OxoTile.EMPTY:
                     continue
 
-                # Search all directions to see if there's a valid row
+                # Search along the four directions to see if there's a valid row
                 for dir_id in xrange(0, 4):
                     for p in xrange(1, self.winning_row_length):
+                        # Step
                         pos_x = x + dir_xy[dir_id][0] * p
                         pos_y = y + dir_xy[dir_id][1] * p
 
-                        if pos_x >= self.num_cols or pos_y >= self.num_rows or \
-                            pos_x < 0 or pos_y < 0:
+                        # Don't go past the border!
+                        if pos_x >= self.num_cols or pos_y >= self.num_rows or pos_y < 0:
                             break
 
+                        # If this square dares to be different, this isn't a winner
                         if self.grid[pos_x][pos_y] is not compare_type:
                             break
+
+                        # If we found winning_row_length matching squares along this line, we won!
                         if p == self.winning_row_length - 1:
-                            return compare_type  # Winner!
+                            return compare_type  # This is the winner!
 
         return 0
 
