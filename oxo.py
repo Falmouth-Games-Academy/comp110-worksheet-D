@@ -3,15 +3,15 @@ class OxoBoard:
     def __init__(self):
         """ The initialiser. Initialise any fields you need here. """
 
-        """These variables will set the height/width of the board and the condition to win"""
-        self.t_height = 3
-        self.cond_win = 3
-        self.t_width = 3
+        ##This is the code for the array board and its spaces
+        self.theboard = [[0,0,0][0,0,0][0,0,0]]
+        self.col = len(self.board)
+        ##Responsible for the number of rows based on the board
+        self.rownumber = len(self.board[0])
 
     def get_square(self, x, y):
-        """ Return 0, 1 or 2 depending on the contents of the specified square. """
-
-
+        """ Return the board's state based on the x and y. """
+        return self.theboard[x][y]
         raise NotImplementedError("TODO: implement get_square")
 
     def set_square(self, x, y, mark):
@@ -19,14 +19,26 @@ class OxoBoard:
             If the square is not empty, leave it as-is and return False. """
         raise NotImplementedError("TODO: implement set_square")
 
+        ##If self board values is equal to 0, it means the board has an empty space in which a mark can be maade"
+        if self.theboard[x][y] == 0:
+            self.theboard[x][y] = mark
+
     def is_board_full(self):
         """ If there are still empty squares on the board, return False.
             If there are no empty squares, return True. """
         raise NotImplementedError("TODO: implement is_board_full")
 
+        for x in range (0, self.rownumber):
+            for y in range(0, self.col):
+                if self.board[x][y] == 0:
+                    return False
+        return True
+
     def get_winner(self):
         """ If a player has three in a row, return 1 or 2 depending on which player.
             Otherwise, return 0. """
+
+
         raise NotImplementedError("TODO: implement get_winner")
 
     def show(self):
