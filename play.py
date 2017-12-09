@@ -94,6 +94,7 @@ while not game_is_over:
             square_y = mouse_y / square_height
             if game_board.set_square(square_x, square_y, current_player):
                 played_move = True
+                board_state [square_x][square_y]
                 current_player = 3 - current_player
             else:
                 print "Illegal move"

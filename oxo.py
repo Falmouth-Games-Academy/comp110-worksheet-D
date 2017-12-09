@@ -3,13 +3,13 @@ class OxoBoard:
         """ The initialiser. Initialise any fields you need here. """
         #sets the number of rows and collems there are
         self.rows = 3
-        self.cols = 3
+        self.columns = 3
 
-        self.numberOfTiles = self.rows * self.cols
+        self.numberOfTiles = self.rows * self.columns
 
         self.board = []
         for row in range(self.rows):
-            self.board += [[0] * self.cols]
+            self.board += [[0] * self.columns]
         print self.board
         #raise NotImplementedError("TODO: implement __init__")
 
@@ -34,20 +34,19 @@ class OxoBoard:
         """ If there are still empty squares on the board, return False.
             If there are no empty squares, return True. """
         # see if the board is filled
-        tilesfilled = 0
+        tiles_filled = 0
 
         for row in self.board:
             for item in row:
                 if item != 0:
-                    tilesfilled += 1
-                    if tilesfilled == self.numberOfTiles:
+                    tiles_filled += 1
+                    if tiles_filled == self.numberOfTiles:
                         return True
         #raise NotImplementedError("TODO: implement is_board_full")
 
     def get_winner(self):
         """ If a player has three in a row, return 1 or 2 depending on which player.
             Otherwise, return 0. """
-        #correctly does not work
         number_to_win_for = 3
 
         p1_Count = 0
@@ -68,9 +67,6 @@ class OxoBoard:
             return 1
         if p2_Count == number_to_win_for:
             return 2
-
-
-        #raise NotImplementedError("TODO: implement get_winner")
 
     def show(self):
         """ Display the current board state in the terminal. You should not need to edit this. """
