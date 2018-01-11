@@ -25,7 +25,12 @@ class OxoBoard:
 
     def is_board_full(self):
         """ If there are still empty squares on the board, return False.
-            If there are no empty squares, return True. """
+            If there are no empty squares, return True. ""
+          
+        for y in xrange(0, self.row):
+              for x in xrange(0, self.col):
+                  if self.board[x][y] == 0:
+                  
         raise NotImplementedError("TODO: implement is_board_full")
 
         for x in range (0, self.rownumber):
