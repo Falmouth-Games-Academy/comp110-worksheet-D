@@ -30,7 +30,7 @@ class OxoBoard:
         return p if p == self.board[start+delta] == self.board[start+2*delta] else 0
 
     def check_lines(self):
-        for i in xrange(3):
+        for i in range(3):
             yield self.check_line(i*3, 1)   # horizontal
             yield self.check_line(i, 3)     # vertical
 
@@ -42,8 +42,8 @@ class OxoBoard:
         """ If a player has three in a row, return 1 or 2 depending on which player.
             Otherwise, return 0. """
         try:
-            return (c for c in self.check_lines() if c != 0).next()
-        except StopIteration:
+            return [c for c in self.check_lines() if c != 0][0]
+        except IndexError:
             return 0
 
     def show(self):

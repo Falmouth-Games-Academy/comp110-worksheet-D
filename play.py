@@ -58,14 +58,14 @@ def draw_board():
 	screen.fill(white)
 
 	# Draw the grid lines
-	for x in xrange(1, grid_width):
+	for x in range(1, grid_width):
 		pygame.draw.line(screen, black, (x * square_width, 0), (x * square_width, window_height), 3)
-	for y in xrange(1, grid_height):
+	for y in range(1, grid_height):
 		pygame.draw.line(screen, black, (0, y * square_height), (window_width, y * square_height), 3)
 
 	# Draw the board
-	for x in xrange(grid_width):
-		for y in xrange(grid_height):
+	for x in range(grid_width):
+		for y in range(grid_height):
 			square_contents = game_board.get_square(x, y)
 			rect = pygame.Rect((x + 0.2) * square_width, (y + 0.2) * square_height, 0.6 * square_width, 0.6 * square_height)
 			if square_contents == 1:
@@ -90,8 +90,8 @@ while not game_is_over:
 			raise KeyboardInterrupt()
 		elif event.type == pygame.MOUSEBUTTONDOWN:
 			mouse_x, mouse_y = event.pos
-			square_x = mouse_x / square_width
-			square_y = mouse_y / square_height
+			square_x = int(mouse_x / square_width)
+			square_y = int(mouse_y / square_height)
 			if game_board.set_square(square_x, square_y, current_player):
 				played_move = True
 				current_player = 3 - current_player

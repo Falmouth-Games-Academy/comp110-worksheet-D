@@ -6,8 +6,8 @@ import oxo
 
 def compare_board(board, expected):
 	""" Check the OXO board against the expected board (given as a 9 element list of 0,1,2) """
-	for y in xrange(3):
-		for x in xrange(3):
+	for y in range(3):
+		for x in range(3):
 			assert board.get_square(x, y) == expected[y*3 + x]
 
 def test_empty_board():
@@ -60,7 +60,7 @@ def test_vertical_line(x, p):
 	
 	board = oxo.OxoBoard()
 	
-	for y in xrange(2):
+	for y in range(2):
 		assert board.set_square(x, y, p)
 		assert board.get_winner() == 0
 		
@@ -78,7 +78,7 @@ def test_horizontal_line(y, p):
 	
 	board = oxo.OxoBoard()
 	
-	for x in xrange(2):
+	for x in range(2):
 		assert board.set_square(x, y, p)
 		assert board.get_winner() == 0
 		
@@ -94,7 +94,7 @@ def test_diagonal_line_1(p):
 	
 	board = oxo.OxoBoard()
 
-	for x in xrange(2):
+	for x in range(2):
 		assert board.set_square(x, x, p)
 		assert board.get_winner() == 0
 		
@@ -110,7 +110,7 @@ def test_diagonal_line_2(p):
 	
 	board = oxo.OxoBoard()
 
-	for x in xrange(2):
+	for x in range(2):
 		assert board.set_square(2-x, x, p)
 		assert board.get_winner() == 0
 		
