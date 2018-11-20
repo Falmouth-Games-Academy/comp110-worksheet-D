@@ -1,26 +1,58 @@
 class OxoBoard:
-    def __init__(self):
+    def __init__(self, custom_width=3, custom_height=3):
         """ The initialiser. Initialise any fields you need here. """
-        raise NotImplementedError("TODO: implement __init__")
+
+        self.board = {}
+        self.width = custom_width
+        self.height = custom_height
+
+        for x in range(0, custom_width):
+            for y in range(0, custom_height):
+                self.board[x, y] = 0
 
     def get_square(self, x, y):
         """ Return 0, 1 or 2 depending on the contents of the specified square. """
-        raise NotImplementedError("TODO: implement get_square")
+        return self.board[x, y]
 
     def set_square(self, x, y, mark):
         """ If the specified square is currently empty (0), fill it with mark and return True.
             If the square is not empty, leave it as-is and return False. """
-        raise NotImplementedError("TODO: implement set_square")
+
+        if self.board[x, y] == 0:
+            self.board[x, y] = mark
+            return True
+        else:
+            return False
 
     def is_board_full(self):
         """ If there are still empty squares on the board, return False.
             If there are no empty squares, return True. """
-        raise NotImplementedError("TODO: implement is_board_full")
 
-    def get_winner(self):
+        return False if 0 in self.board.values() else True
+
+    def get_winner(self, row_length=3):
         """ If a player has three in a row, return 1 or 2 depending on which player.
             Otherwise, return 0. """
-        raise NotImplementedError("TODO: implement get_winner")
+
+        for cell in self.board:
+
+            # For each cell, we will search in 4 directions:
+            # Horizontally (to the right)
+            if cell[1] + row_length <= self.width:
+                for y in range(cell[1], cell[1] + row_length):
+                    if self.board[cell[0], y] != self.board[cell]:
+                        break
+                    elif y == cell[1] + row_length:
+                        return self.board[cell]
+                # Note: check my notes if I forget what something does
+            # Diagonally (top left to bottom right)
+            if cell[1] + row_length <= self.width \
+                and cell[0] + row_length <= self.height:
+                pass
+
+            # Diagonally (bottom left to top right)
+
+            # Vertically (downwards)
 
     def show(self):
         """ Display the current board state in the terminal. You should not need to edit this. """
