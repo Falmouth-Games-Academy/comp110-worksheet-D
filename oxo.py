@@ -18,12 +18,16 @@ class OxoBoard:
             return True
         else:
             return False
-        # raise NotImplementedError("TODO: implement set_square")
 
     def is_board_full(self):
         """ If there are still empty squares on the board, return False.
             If there are no empty squares, return True. """
-        pass
+        if 0 in self.square:
+            return True
+            print('not full')
+        else:
+            return False
+            print('full')
         # raise NotImplementedError("TODO: implement is_board_full")
 
     def get_winner(self):
