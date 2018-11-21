@@ -22,25 +22,43 @@ class OxoBoard:
     def is_board_full(self):
         """ If there are still empty squares on the board, return False.
             If there are no empty squares, return True."""
-        if 0 in self.squares:
-            return True
+        if 0 in [elem for sublist in self.squares for elem in sublist]:
             print('not full')
-        else:
             return False
+
+        else:
             print('full')
+            return True
 
     def get_winner(self, player):
         """ If a player has three in a row, return 1 or 2 depending on which player.
             Otherwise, return 0."""
+        '''
+        for i in range(0, len(self.squares)):  # check vertically
+            if self.squares[0][i] == \
+                    self.squares[0][i] == \
+                    self.squares[0][i] and self.squares[0][i] != 0:
+                print('Vertical win')
+                return player
+        for i in range(0, len(self.squares)):  # check vertically
+            if self.squares[i][0] == \
+                    self.squares[i][1] == \
+                    self.squares[i][2] and self.squares[i][0] != 0:
+                print('Horizontal win')
+                return player
+        print('none')
+        return 0
+        '''
+
         for i in range(0, len(self.squares)):  # check vertically
             if self.squares[0][i] == \
                     self.squares[1][i] == \
-                    self.squares[2][i] and self.squares[0][i] != 0:
+                    self.squares[2][i] != 0:
                 print('Vertical win')
                 return player
             elif self.squares[i][0] == \
                     self.squares[i][1] == \
-                    self.squares[i][2] and self.squares[i][0] != 0:
+                    self.squares[i][2] != 0:
                 print('Horizontal win')
                 return player
             else:
