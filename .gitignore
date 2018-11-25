@@ -1,5 +1,9 @@
 # Created by https://www.gitignore.io/api/python
 
+### Pycharm
+.idea/*
+*.snl.iml
+
 ### Python ###
 # Byte-compiled / optimized / DLL files
 __pycache__/
