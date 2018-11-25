@@ -41,12 +41,15 @@ class OxoBoard:
         """ If a player has three in a row, return 1 or 2 depending on which player.
             Otherwise, return 0. """
         for player_index in range(1, 3, 1):
+            # Horizontal
             winner = self.check_hoz(player_index)
             if winner != 0:
                 return winner
+            # Vertical
             winner = self.check_vert(player_index)
             if winner != 0:
                 return winner
+            # Diagonals
             winner = self.check_diagonals(player_index)
             if winner != 0:
                 return winner
