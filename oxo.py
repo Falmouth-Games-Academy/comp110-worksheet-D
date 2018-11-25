@@ -6,8 +6,8 @@ class OxoBoard:
     def __init__(self, grid_width=3, grid_height=3, win_row_amount=3):
         """ The initialiser. Initialise any fields you need here.
 
-        :param board_width:     width of board
-        :param board_height:    height of board
+        :param grid_width:     width of board
+        :param grid_height:    height of board
         :param win_row_amount:
         """
         self.grid_size = {"width": grid_width, "height": grid_height}
@@ -30,7 +30,6 @@ class OxoBoard:
             return True
         else:
             return False
-
 
     def is_board_full(self):
         """ If there are still empty squares on the board, return False.
@@ -72,7 +71,7 @@ class OxoBoard:
 
                 # break if its not possible to get the required amount it a row
                 if count_in_row == 0 and self.grid_size["width"] - x < self.win_row_amount:
-                    break;
+                    break
 
                 # reset and continue if we have no input
                 if (x, y) not in self.grid:
@@ -108,7 +107,7 @@ class OxoBoard:
 
                 # break if its not possible to get the required amount it a row
                 if count_in_row == 0 and self.grid_size["height"] - y < self.win_row_amount:
-                    break;
+                    break
 
                 # reset and continue if we have no input
                 if (x, y) not in self.grid:
@@ -163,7 +162,6 @@ class OxoBoard:
         elif self.grid[(start_x, start_y)] != player:
             return 0
 
-
         count_in_row = 0
 
         for i in range(self.win_row_amount):
@@ -193,10 +191,6 @@ class OxoBoard:
 
         return 0
 
-
-
-
-
     def show(self):
         """ Display the current board state in the terminal. You should not need to edit this. """
         for y in range(3):
@@ -208,4 +202,3 @@ class OxoBoard:
 
                 # Print a space for empty (0), an O for player 1, or an X for player 2
                 print(" OX"[self.get_square(x, y)],)
-            print
