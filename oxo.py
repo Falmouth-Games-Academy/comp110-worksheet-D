@@ -34,91 +34,68 @@ class OxoBoard:
         """ If a player has three in a row, return 1 or 2 depending on which player.
             Otherwise, return 0. """
 
-        # print("BEGIN======================================================")
-
-        # for i in range(0, 3):
-            # print(self.board[i, 0], self.board[i, 1], self.board[i, 2])
-
-        winner = 0
-
         for cell in self.board:
-            # print(str(cell))
 
-            # For each cell, we will search in 4 directions:
+            if self.board[cell] != 0:
 
-            # Horizontally (to the right)
+                # NOTE: DISPLAY IS FLIPPED DIAGONALLY (oof)
 
-            # NOTE: DISPLAY IS FLIPPED (dammit)
+                # For each cell, we will search in 4 directions:
 
-            if cell[1] + row_length <= self.width:
+                # Horizontally (to the right)
 
-                # print("Vertical check proceeding")
+                if cell[1] + row_length <= self.width:
 
-                for y in range(cell[1] + 1, cell[1] + row_length):
+                    for y in range(cell[1] + 1, cell[1] + row_length):
 
-                    # print('Checking cell ' + str(cell) + ' with cell ' + str((cell[0], y)))
+                        if self.board[cell[0], y] != self.board[cell]:
+                            break
+                        elif y == cell[1] + row_length - 1:
+                            return self.board[cell]
 
-                    if self.board[cell[0], y] != self.board[cell]:
-                        break
-                    elif y == cell[1] + row_length - 1 and winner == 0:
-                        winner = self.board[cell]
+                # Diagonally (top left to bottom right)
 
-            # Diagonally (top left to bottom right)
+                if cell[1] + row_length <= self.width \
+                        and cell[0] + row_length <= self.height:
 
-            if cell[1] + row_length <= self.width \
-                    and cell[0] + row_length <= self.height:
+                    y = cell[1] + 1
 
-                # print("Diagonal check proceeding downwards")
+                    for x in range(cell[0] + 1, cell[0] + row_length):
 
-                y = cell[1] + 1
+                        if self.board[x, y] != self.board[cell]:
+                            break
+                        elif x == cell[0] + row_length - 1:
+                            return self.board[cell]
+                        y += 1
 
-                for x in range(cell[0] + 1, cell[0] + row_length):
+                # Diagonally (bottom left to top right)
 
-                    # print('Checking cell ' + str(cell) + ' with cell ' + str((x, y)))
+                if cell[1] + row_length <= self.width \
+                        and cell[0] - row_length + 1 >= 0:
 
-                    if self.board[x, y] != self.board[cell]:
-                        break
-                    elif x == cell[0] + row_length - 1 and winner == 0:
-                        winner = self.board[cell]
-                    y += 1
+                    y = cell[1]
 
-            # Diagonally (bottom left to top right)
+                    for x in range(cell[0] - 1, cell[0] - row_length, -1):
 
-            if cell[1] + row_length <= self.width \
-                    and cell[0] - row_length + 1 >= 0:
+                        y += 1
 
-                # print("Diagonal check proceeding upwards")
+                        if self.board[x, y] != self.board[cell]:
+                            break
+                        elif x == cell[0] - row_length + 1:
+                            return self.board[cell]
 
-                y = cell[1]
+                # Vertically (downwards)
 
-                for x in range(cell[0] - 1, cell[0] - row_length, -1):
+                if cell[0] + row_length <= self.height:
 
-                    y += 1
+                    for x in range(cell[0] + 1, cell[0] + row_length):
 
-                    # print('Checking cell ' + str(cell) + ' with cell ' + str((x, y)))
+                        if self.board[x, cell[1]] != self.board[cell]:
+                            break
+                        elif x == cell[0] + row_length - 1:
+                            return self.board[cell]
 
-                    if self.board[x, y] != self.board[cell]:
-                        break
-                    elif x == cell[0] - row_length + 1 and winner == 0:
-                        winner = self.board[cell]
-
-
-            # Vertically (downwards)
-
-            if cell[0] + row_length <= self.height:
-
-                # print("Horizontal check proceeding")
-
-                for x in range(cell[0] + 1, cell[0] + row_length):
-
-                    # print('Checking cell ' + str(cell) + ' with cell ' + str((x, cell[1])))
-
-                    if self.board[x, cell[1]] != self.board[cell]:
-                        break
-                    elif x == cell[0] + row_length - 1 and winner == 0:
-                        winner = self.board[cell]
-
-        return winner
+        return 0
 
     def show(self):
         """ Display the current board state in the terminal. You should not need to edit this. """
