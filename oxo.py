@@ -53,7 +53,11 @@ class OxoBoard:
         return 0
 
     def check_hoz(self, player):
+        """Check the horizontally for a winner
 
+        :param player:  player index
+        :return:        winner id (0 if no winner)
+        """
         # there is no point checking the board if the grid is not wide enough for the win condition
         if self.win_row_amount > self.grid_size["width"]:
             return 0
@@ -85,7 +89,11 @@ class OxoBoard:
         return 0
 
     def check_vert(self, player):
+        """Check the vertically for a winner
 
+        :param player:  player index
+        :return:        winner id (0 if no winner)
+        """
         # there is no point checking the board if the grid is not wide enough for the win condition
         if self.win_row_amount > self.grid_size["height"]:
             return 0
@@ -94,6 +102,7 @@ class OxoBoard:
 
         for x in range(self.grid_size["width"]):
             for y in range(self.grid_size["height"]):
+
                 # break if its not possible to get the required amount it a row
                 if count_in_row == 0 and self.grid_size["height"] - y < self.win_row_amount:
                     break;
@@ -116,13 +125,19 @@ class OxoBoard:
         return 0
 
     def check_diagonals(self, player):
+        """Check both diagonals (left to right and right to left) for a winner
 
+        :param player:  player index
+        :return:        winner id (0 if no winner)
+        """
         for x in range(self.grid_size["width"]):
             for y in range(self.grid_size["height"]):
+                # check diagonal left to right
                 winner = self.check_diagonal(x, y, player, True)
                 if winner != 0:
                     return winner
 
+                # check diagonal right to left
                 winner = self.check_diagonal(x, y, player, False)
                 if winner != 0:
                     return winner
@@ -130,7 +145,15 @@ class OxoBoard:
         return 0
 
     def check_diagonal(self, start_x, start_y, player, left_to_right):
+        """ Check for a winner on the diagonal from start x and start y
 
+        :param start_x:         start x position
+        :param start_y:         start y position
+        :param player:          player index
+        :param left_to_right:   Should it check from left to right (true)
+                                or right to left (false)
+        :return:                winner id (0 if no winner)
+        """
         # check that there is an input for player to start with.
         if (start_x, start_y) not in self.grid:
             return 0
@@ -139,21 +162,22 @@ class OxoBoard:
 
 
         count_in_row = 0
-        offset_x = 0
-        offset_y = 0
+
         for i in range(self.win_row_amount):
 
             offset_x = i
             offset_y = i
+            # invert x offset if checking right to left
             if not left_to_right:
                 offset_x = -i
 
             x, y = start_x + offset_x, start_y + offset_y
 
-            if not left_to_right:
-                print(x, y)
+            # return if x goes less than 0 (can not be a winner)
+            if x < 0:
+                return 0
 
-            # if there is no input return
+            # if there is no input or player don't match return (can not win)
             if (x, y) not in self.grid:
                 return 0
             elif self.grid[(x, y)] != player:
