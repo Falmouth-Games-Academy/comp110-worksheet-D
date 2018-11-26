@@ -40,7 +40,7 @@ def check_game_over():
         Return True if the game is over, otherwise False."""
     global game_over_text
 
-    winner = game_board.get_winner(3 - current_player)
+    winner = game_board.get_winner()
     if winner != 0:
         font = pygame.font.Font(None, 60)
         game_over_text = font.render("Player %i wins!" % winner, True, purple, white)
@@ -100,7 +100,7 @@ while not game_is_over:
                 print("Illegal move")
 
     # Check if game is over
-    winner = game_board.get_winner(3 - current_player)
+    winner = game_board.get_winner()
     if winner != 0:
         game_over_text = "Player %i wins!" % winner
         game_is_over = True

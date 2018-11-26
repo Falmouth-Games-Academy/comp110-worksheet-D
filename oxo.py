@@ -8,6 +8,8 @@ class OxoBoard:
                         [0, 0, 0],
                         [0, 0, 0]]
 
+        self.current_player = 1
+
     def get_square(self, x, y):
         """
         _______________________________________________________________________
@@ -20,20 +22,22 @@ class OxoBoard:
 
         return self.squares[y][x]
 
-    def set_square(self, x, y, mark):
+    def set_square(self, x, y, player):
         """
         _______________________________________________________________________
          If the specified square is currently empty (0), fill it with mark and
          return True. Otherwise , leave it as-is and return False.
         :param x: grid x position
         :param y: grid y position
-        :param mark: current grid position's contents (0, 1, or 2)
+        :param player: current player, also used for setting the
+                                    square's contents (0, 1, or 2)
         :return: True or False depending on whether square is full
         ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
         """
+        self.current_player = player
 
         if self.squares[y][x] == 0:
-            self.squares[y][x] = mark
+            self.squares[y][x] = player
             return True
         else:
             return False
@@ -53,7 +57,7 @@ class OxoBoard:
         else:
             return True
 
-    def get_winner(self, player):
+    def get_winner(self):
         """
         _______________________________________________________________________
         If a player has three in a row, return 1 or 2 depending on which
@@ -68,22 +72,22 @@ class OxoBoard:
             if self.squares[i][0] == \
                     self.squares[i][1] == \
                     self.squares[i][2] != 0:
-                return player
+                return self.current_player
             # check vertical win
             elif self.squares[0][i] == \
                     self.squares[1][i] == \
                     self.squares[2][i] != 0:
-                return player
+                return self.current_player
             # check diagonal win
             elif self.squares[0][i-2] == \
                     self.squares[1][i-1] == \
                     self.squares[2][i] != 0:
-                return player
+                return self.current_player
             # check diagonal win
             elif self.squares[0][i] == \
                     self.squares[1][i-1] == \
                     self.squares[2][i-2] != 0:
-                return player
+                return self.current_player
 
         return 0
 
