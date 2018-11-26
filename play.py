@@ -28,7 +28,7 @@ square_height = window_height / grid_height
 screen = pygame.display.set_mode(window_size)
 
 # Create the game board
-game_board = oxo.OxoBoard()
+game_board = oxo.OxoBoard(grid_width, grid_height)
 
 # If the game is over, game_over_text will be a pygame surface containing the game over text
 # Otherwise it will be None
@@ -92,6 +92,7 @@ while not game_is_over:
 			mouse_x, mouse_y = event.pos
 			square_x = int(mouse_x / square_width)
 			square_y = int(mouse_y / square_height)
+			print(square_x, square_y)
 			if game_board.set_square(square_x, square_y, current_player):
 				played_move = True
 				current_player = 3 - current_player
