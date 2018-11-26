@@ -30,21 +30,22 @@ class OxoBoard:
     def get_winner(self):
         if self.board[0][0] == self.board[0][1] == self.board[0][2]:
             return int(self.board[0][0])
-        if self.board[1][0] == self.board[1][1] == self.board[1][2]:
+        elif self.board[1][0] == self.board[1][1] == self.board[1][2]:
             return int(self.board[1][0])
-        if self.board[2][0] == self.board[2][1] == self.board[2][2]:
+        elif self.board[2][0] == self.board[2][1] == self.board[2][2]:
             return int(self.board[2][0])
-        if self.board[0][0] == self.board[1][0] == self.board[2][0]:
+        elif self.board[0][0] == self.board[1][0] == self.board[2][0]:
             return int(self.board[0][0])
-        if self.board[0][1] == self.board[1][1] == self.board[2][1]:
+        elif self.board[0][1] == self.board[1][1] == self.board[2][1]:
             return int(self.board[0][1])
-        if self.board[0][2] == self.board[1][2] == self.board[2][2]:
+        elif self.board[0][2] == self.board[1][2] == self.board[2][2]:
             return int(self.board[0][2])
-        if self.board[0][0] == self.board[1][1] == self.board[2][2]:
+        elif self.board[0][0] == self.board[1][1] == self.board[2][2]:
             return int(self.board[0][0])
-        if self.board[2][0] == self.board[1][1] == self.board[0][2]:
+        elif self.board[2][0] == self.board[1][1] == self.board[0][2]:
             return int(self.board[2][0])
-        return 0
+        else:
+            return 0
 
     def show(self):
         """ Display the current board state in the terminal. You should not need to edit this. """
