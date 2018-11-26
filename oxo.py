@@ -24,7 +24,6 @@ class OxoBoard:
         for x in range(len(self.board)):
             for y in range(len(self.board[x])):
                 if self.board[x][y] == 0:
-
                     return False
         return True
 
@@ -45,6 +44,7 @@ class OxoBoard:
             return int(self.board[0][0])
         if self.board[2][0] == self.board[1][1] == self.board[0][2]:
             return int(self.board[2][0])
+        return 0
 
     def show(self):
         """ Display the current board state in the terminal. You should not need to edit this. """
