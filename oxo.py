@@ -79,14 +79,14 @@ class OxoBoard:
                     self.squares[2][i] != 0:
                 return self.current_player
             # check diagonal win
-            elif self.squares[0][i-2] == \
-                    self.squares[1][i-1] == \
-                    self.squares[2][i] != 0:
+            elif self.squares[0][2] == \
+                    self.squares[1][1] == \
+                    self.squares[2][0] != 0:
                 return self.current_player
             # check diagonal win
-            elif self.squares[0][i] == \
-                    self.squares[1][i-1] == \
-                    self.squares[2][i-2] != 0:
+            elif self.squares[0][0] == \
+                    self.squares[1][1] == \
+                    self.squares[2][2] != 0:
                 return self.current_player
 
         return 0

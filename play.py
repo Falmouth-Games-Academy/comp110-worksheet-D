@@ -1,7 +1,6 @@
 import pygame
-import sys
-import oxo
 
+import oxo
 
 # Initialise PyGame
 pygame.init()
@@ -37,7 +36,7 @@ game_over_text = None
 
 def check_game_over():
     """ Check if the game has ended; if so, set game_over_text.
-        Return True if the game is over, otherwise False."""
+        Return True if the game is over, otherwise False. """
     global game_over_text
 
     winner = game_board.get_winner()
@@ -67,7 +66,8 @@ def draw_board():
     for x in range(grid_width):
         for y in range(grid_height):
             square_contents = game_board.get_square(x, y)
-            rect = pygame.Rect((x + 0.2) * square_width, (y + 0.2) * square_height, 0.6 * square_width, 0.6 * square_height)
+            rect = pygame.Rect((x + 0.2) * square_width, (y + 0.2) * square_height, 0.6 * square_width,
+                               0.6 * square_height)
             if square_contents == 1:
                 pygame.draw.ellipse(screen, blue, rect, 3)
             elif square_contents == 2:
@@ -87,8 +87,7 @@ while not game_is_over:
     while not played_move:
         event = pygame.event.wait()
         if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
+            raise KeyboardInterrupt()
         elif event.type == pygame.MOUSEBUTTONDOWN:
             mouse_x, mouse_y = event.pos
             square_x = int(mouse_x / square_width)
