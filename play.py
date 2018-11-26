@@ -14,21 +14,24 @@ blue = (100, 100, 255)
 red = (255, 100, 100)
 purple = (200, 0, 255)
 
-window_width = 600
-window_height = 600
-window_size = (window_width, window_height)
+window_dims = 600
+window_size = (window_dims, window_dims)
 
-grid_width = 3
-grid_height = 3
+# I am changing grid_size/height into a single variable because a rectangular
+#  tic tac toe scares me
 
-square_width = window_width / grid_width
-square_height = window_height / grid_height
+
+####### CHANGE THIS FOR GRID SIZe #######
+grid_size = 3
+### ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ###
+
+square_size = window_dims / grid_size
 
 # Create the screen
 screen = pygame.display.set_mode(window_size)
 
 # Create the game board
-game_board = oxo.OxoBoard()
+game_board = oxo.OxoBoard(grid_size)
 
 # If the game is over, game_over_text will be a pygame surface containing the game over text
 # Otherwise it will be None
@@ -58,16 +61,16 @@ def draw_board():
 	screen.fill(white)
 
 	# Draw the grid lines
-	for x in range(1, grid_width):
-		pygame.draw.line(screen, black, (x * square_width, 0), (x * square_width, window_height), 3)
-	for y in range(1, grid_height):
-		pygame.draw.line(screen, black, (0, y * square_height), (window_width, y * square_height), 3)
+	for x in range(1, grid_size):
+		pygame.draw.line(screen, black, (x * square_size, 0), (x * square_size, window_dims), 3)
+	for y in range(1, grid_size):
+		pygame.draw.line(screen, black, (0, y * square_size), (window_dims, y * square_size), 3)
 
 	# Draw the board
-	for x in range(grid_width):
-		for y in range(grid_height):
+	for x in range(grid_size):
+		for y in range(grid_size):
 			square_contents = game_board.get_square(x, y)
-			rect = pygame.Rect((x + 0.2) * square_width, (y + 0.2) * square_height, 0.6 * square_width, 0.6 * square_height)
+			rect = pygame.Rect((x + 0.2) * square_size, (y + 0.2) * square_size, 0.6 * square_size, 0.6 * square_size)
 			if square_contents == 1:
 				pygame.draw.ellipse(screen, blue, rect, 3)
 			elif square_contents == 2:
@@ -90,8 +93,8 @@ while not game_is_over:
 			raise KeyboardInterrupt()
 		elif event.type == pygame.MOUSEBUTTONDOWN:
 			mouse_x, mouse_y = event.pos
-			square_x = int(mouse_x / square_width)
-			square_y = int(mouse_y / square_height)
+			square_x = int(mouse_x / square_size)
+			square_y = int(mouse_y / square_size)
 			if game_board.set_square(square_x, square_y, current_player):
 				played_move = True
 				current_player = 3 - current_player
@@ -113,8 +116,8 @@ while not game_is_over:
 		# Draw text in the centre of the screen
 		font = pygame.font.Font(None, 60)
 		text_surface = font.render(game_over_text, True, (0, 0, 0))
-		x = (window_width - text_surface.get_width()) * 0.5
-		y = (window_height - text_surface.get_height()) * 0.5
+		x = (window_dims - text_surface.get_width()) * 0.5
+		y = (window_dims - text_surface.get_height()) * 0.5
 		screen.blit(text_surface, (x, y))
 		
 		pygame.display.flip()

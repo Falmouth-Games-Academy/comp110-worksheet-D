@@ -1,7 +1,7 @@
 class OxoBoard:
-    def __init__(self):
+    def __init__(self, size):
         """ The initialiser. Initialise any fields you need here. """
-        self.size = 3
+        self.size = size
         self.board = [[0 for x in range(self.size)] for y in range(self.size)]
         '''
          x = 1,2,3
@@ -20,6 +20,15 @@ class OxoBoard:
                 
             pep-8 is lame so I didn't stick too strictly to it,
             comments are sparse because doc-strings exist :)
+            
+            UPDATE:
+            I have changed the play.py variable names a lot, because it annoyed
+            me :) but this allowed me to create my OXO game with the potential
+            to have any sized grid and the appropriate checks for them. All
+            grids will be square because rectangular grids make me the big 
+            angery >:( to change the size of the grid, change the variable
+            ' grid_size '  in play.py to any number ( not 1 or 2 they don't 
+            make for a fun game )
         '''
 
     def get_square(self, x, y):
@@ -42,21 +51,37 @@ class OxoBoard:
                 if self.board[y][x] == 0: return False
         return True
 
+    def horizontal_check(self, mark, index, y):
+        if self.board[y][index] == mark:
+            if index != self.size - 1:
+                return self.horizontal_check(mark, index + 1, y)
+            else: return True
+        else: return False
+
+    def vertical_check(self, mark, x, index):
+        if self.board[index][x] == mark:
+            if index != self.size - 1:
+                return self.vertical_check(mark, x, index + 1)
+            else: return True
+        else: return False
+
     def get_winner(self):
         """ If a player has three in a row, return 1 or 2 depending on which player.
             Otherwise, return 0. """
 
-        # Horizontal
-        for y in range(3):
-            if self.board[y][0] != 0 and \
-                    self.board[y][0] == self.board[y][1] == self.board[y][2]:
-                return self.board[y][0]
+        # New Horizontal
+        for y in range(self.size):
+            mark = self.board[y][0]
+            if mark != 0:
+                if self.horizontal_check(mark, 1, y):
+                    return mark
 
-        # Vertical
-        for x in range(3):
-            if self.board[0][x] != 0 and \
-                    self.board[0][x] == self.board[1][x] == self.board[2][x]:
-                return self.board[0][x]
+        # New Vertical
+        for x in range(self.size):
+            mark = self.board[0][x]
+            if mark != 0:
+                if self.vertical_check(mark, x ,1):
+                    return mark
 
         # Diagonals
         for diagonal in range(0,self.size,self.size-1):
