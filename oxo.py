@@ -45,9 +45,13 @@ class OxoBoard:
         """
         # Horizontal checking
         for x in range(0, 2):
-            if 1 in [self.board_list[x][1]] and 1 in [self.board_list[x + 3][1]] and 1 in [self.board_list[x + 6][1]]:
+            if 1 in [self.board_list[x][1]] \
+                    and 1 in [self.board_list[x + 3][1]] \
+                    and 1 in [self.board_list[x + 6][1]]:
                 return 1
-            elif 2 in [self.board_list[x][1]] and 2 in [self.board_list[x + 3][1]] and 2 in [self.board_list[x + 6][x]]:
+            elif 2 in [self.board_list[x][1]] \
+                    and 2 in [self.board_list[x + 3][1]] \
+                    and 2 in [self.board_list[x + 6][1]]:
                 return 2
         # Vertical checking
         for y in range(0, 8, 3):
