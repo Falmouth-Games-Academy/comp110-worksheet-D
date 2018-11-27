@@ -1,12 +1,14 @@
 class OxoBoard:
-    board_rows = 3
-    board_columns = 3
+    board_rows = 0
+    board_columns = 0
     board_array = []
     current_square = 0
 
-    def __init__(self):
+    def __init__(self, size):
         """ The initialiser. Initialise any fields you need here. """
 
+        self.board_rows = size
+        self.board_columns = size
         # create the board array
         for x in range(self.board_rows):
             self.board_array.append([])
