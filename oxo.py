@@ -51,9 +51,9 @@ class OxoBoard:
                 return 2
         # Vertical checking
         for y in range(0, 8, 3):
-            if 1 in [self.board_list[y - 2][1]] and 1 in [self.board_list[y - 1][1]] and 1 in [self.board_list[y-1][1]]:
+            if 1 in [self.board_list[y - 3][1]] and 1 in [self.board_list[y - 2][1]] and 1 in [self.board_list[y-1][1]]:
                 return 1
-            if 2 in [self.board_list[y - 2][1]] and 2 in [self.board_list[y - 1][1]] and 2 in [self.board_list[y][1]]:
+            if 2 in [self.board_list[y - 3][1]] and 2 in [self.board_list[y - 2][1]] and 2 in [self.board_list[y-1][1]]:
                 return 2
         # Diagonal Checking
         if 1 in [self.board_list[0][1]] and 1 in [self.board_list[4][1]] and 1 in [self.board_list[8][1]]:
