@@ -61,7 +61,7 @@ class OxoBoard:
                 if self.current_square == 1:
                     if 1 == self.board_array[y][x]:
                         player1_score += 1
-                        if player1_score == 3:
+                        if player1_score == self.board_columns:
                             return 1
                     else:
                         player1_score = 0
@@ -70,7 +70,7 @@ class OxoBoard:
                 elif self.current_square == 2:
                     if 2 == self.board_array[y][x]:
                         player2_score += 1
-                        if player2_score == 3:
+                        if player2_score == self.board_columns:
                             return 2
                     else:
                         player2_score = 0
