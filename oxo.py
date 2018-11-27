@@ -1,12 +1,11 @@
 class OxoBoard:
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
+    def __init__(self):
+        self.x = 3
+        self.y = 3
         board_list = []
         for i in range(self.x):
             for j in range(self.y):
                 board_list.append([(i, j), 0])
-        print(board_list)
         self.board_list = board_list
         """ The initialiser. Initialise any fields you need here. """
 
@@ -44,7 +43,6 @@ class OxoBoard:
             Otherwise, return 0.
             This is not very maintainable and will not work for the possibility of having a larger grid
         """
-        print(self.board_list)
         # Horizontal checking
         for x in range(0, 2):
             if 1 in [self.board_list[x][1]] and 1 in [self.board_list[x + 3][1]] and 1 in [self.board_list[x + 6][1]]:
