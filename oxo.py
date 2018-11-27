@@ -24,8 +24,10 @@ class OxoBoard:
     def set_square(self, x, y, mark):
         for i in range(len(self.board_list)):
             if self.board_list[i][0] == (x, y):
+                print(x, y)
                 if self.board_list[i][1] == 0:
                     self.board_list[i][1] = mark
+                    print(self.board_list)
                     return True
                 else:
                     return False
@@ -44,7 +46,7 @@ class OxoBoard:
             This is not very maintainable and will not work for the possibility of having a larger grid
         """
         # Horizontal checking
-        for x in range(0, 2):
+        for x in range(0, 3):
             if 1 in [self.board_list[x][1]] \
                     and 1 in [self.board_list[x + 3][1]] \
                     and 1 in [self.board_list[x + 6][1]]:
@@ -55,23 +57,34 @@ class OxoBoard:
                 return 2
         # Vertical checking
         for y in range(0, 8, 3):
-            if 1 in [self.board_list[y - 3][1]] and 1 in [self.board_list[y - 2][1]] and 1 in [self.board_list[y-1][1]]:
+            if 1 in [self.board_list[y - 3][1]] \
+                    and 1 in [self.board_list[y - 2][1]] \
+                    and 1 in [self.board_list[y-1][1]]:
                 return 1
-            if 2 in [self.board_list[y - 3][1]] and 2 in [self.board_list[y - 2][1]] and 2 in [self.board_list[y-1][1]]:
+            if 2 in [self.board_list[y - 3][1]] \
+                    and 2 in [self.board_list[y - 2][1]] \
+                    and 2 in [self.board_list[y-1][1]]:
                 return 2
         # Diagonal Checking
-        if 1 in [self.board_list[0][1]] and 1 in [self.board_list[4][1]] and 1 in [self.board_list[8][1]]:
+        if 1 in [self.board_list[0][1]] \
+                and 1 in [self.board_list[4][1]] \
+                and 1 in [self.board_list[8][1]]:
             return 1
-        if 2 in [self.board_list[0][1]] and 2 in [self.board_list[4][1]] and 2 in [self.board_list[8][1]]:
+        if 2 in [self.board_list[0][1]] \
+                and 2 in [self.board_list[4][1]] \
+                and 2 in [self.board_list[8][1]]:
             return 2
-        if 1 in [self.board_list[2][1]] and 1 in [self.board_list[4][1]] and 1 in [self.board_list[6][1]]:
+        if 1 in [self.board_list[2][1]] \
+                and 1 in [self.board_list[4][1]] \
+                and 1 in [self.board_list[6][1]]:
             return 1
-        if 2 in [self.board_list[2][1]] and 2 in [self.board_list[4][1]] and 2 in [self.board_list[6][1]]:
+        if 2 in [self.board_list[2][1]] \
+                and 2 in [self.board_list[4][1]] \
+                and 2 in [self.board_list[6][1]]:
 
             return 2
 
         return 0
-
 
     def show(self):
         """ Display the current board state in the terminal. You should not need to edit this. """
