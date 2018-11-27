@@ -18,9 +18,8 @@ window_width = 600
 window_height = 600
 window_size = (window_width, window_height)
 
-grid_size = 5
-grid_width = grid_size
-grid_height = grid_size
+grid_width = 3
+grid_height = 3
 
 square_width = window_width / grid_width
 square_height = window_height / grid_height
@@ -29,7 +28,7 @@ square_height = window_height / grid_height
 screen = pygame.display.set_mode(window_size)
 
 # Create the game board
-game_board = oxo.OxoBoard(grid_size)
+game_board = oxo.OxoBoard()
 
 # If the game is over, game_over_text will be a pygame surface containing the game over text
 # Otherwise it will be None

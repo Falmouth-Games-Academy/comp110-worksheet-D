@@ -1,14 +1,11 @@
 class OxoBoard:
-    board_rows = 0
-    board_columns = 0
+    board_rows = 3
+    board_columns = 3
     board_array = []
     current_square = 0
 
-    def __init__(self, size):
+    def __init__(self):
         """ The initialiser. Initialise any fields you need here. """
-
-        self.board_rows = size
-        self.board_columns = size
         # create the board array
         for x in range(self.board_rows):
             self.board_array.append([])
@@ -52,35 +49,30 @@ class OxoBoard:
             return True
 
     def check_horizontal(self):
-        """Check if a player has three in a row horizontally."""
+        """Check if a player has connected a row horizontally."""
 
         player1_score = 0
         player2_score = 0
         for x in range(self.board_rows):
-            for y in range(self.board_columns):
+            if 1 == self.board_array[x][x]:
+                player1_score += 1
+                if player1_score == self.board_columns:
+                    return 1
+            else:
+                player1_score = 0
 
-                # check for player 1
-                if self.current_square == 1:
-                    if 1 == self.board_array[y][x]:
-                        player1_score += 1
-                        if player1_score == self.board_columns:
-                            return 1
-                    else:
-                        player1_score = 0
-
-                # check for player 2
-                elif self.current_square == 2:
-                    if 2 == self.board_array[y][x]:
-                        player2_score += 1
-                        if player2_score == self.board_columns:
-                            return 2
-                    else:
-                        player2_score = 0
+            # check for player 2
+            if 2 == self.board_array[x][x]:
+                player2_score += 1
+                if player2_score == self.board_columns:
+                    return 2
+            else:
+                player2_score = 0
 
         return 0
 
     def check_diagonal(self):
-        """Check if a player has three in a row diagonally."""
+        """Check if a player has connected a row diagonally."""
 
         connected_o_1 = 0
         connected_x_1 = 0
@@ -131,7 +123,7 @@ class OxoBoard:
         return 0
 
     def check_vertical(self):
-        """Check if a player has three in a row vertically."""
+        """Check if a player has connected a row vertically."""
 
         for x in range(self.board_rows):
 
@@ -146,7 +138,7 @@ class OxoBoard:
         return 0
 
     def get_winner(self):
-        """ If a player has three in a row, return 1 or 2 depending on which player.
+        """ If a player has connected a row, return 1 or 2 depending on which player.
             Otherwise, return 0. """
 
         # get results
