@@ -51,23 +51,23 @@ class OxoBoard:
     def check_horizontal(self):
         """Check if a player has connected a row horizontally."""
 
-        player1_score = 0
-        player2_score = 0
         for x in range(self.board_rows):
-            if 1 == self.board_array[x][x]:
-                player1_score += 1
+            player1_score = 0
+            player2_score = 0
+            for y in range(self.board_columns):
+                if 1 == self.board_array[y][x]:
+                    player1_score += 1
+                else:
+                    player1_score = 0
                 if player1_score == self.board_columns:
                     return 1
-            else:
-                player1_score = 0
 
-            # check for player 2
-            if 2 == self.board_array[x][x]:
-                player2_score += 1
+                if 2 == self.board_array[y][x]:
+                    player2_score += 1
+                else:
+                    player2_score = 0
                 if player2_score == self.board_columns:
                     return 2
-            else:
-                player2_score = 0
 
         return 0
 
