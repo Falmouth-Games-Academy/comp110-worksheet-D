@@ -1,8 +1,8 @@
 class OxoBoard:
+
     board_rows = 3
     board_columns = 3
     board_array = []
-    current_square = 0
 
     def __init__(self):
         """ The initialiser. Initialise any fields you need here. """
@@ -27,8 +27,6 @@ class OxoBoard:
 
         if self.board_array[x][y] == 0:
             self.board_array[x][y] = mark
-            # save the current squares' player mark
-            self.current_square = mark
             return True
         else:
             return False
@@ -48,9 +46,8 @@ class OxoBoard:
         if full_columns == self.board_rows:
             return True
 
-    def get_winner(self):
-        """ If a player has connected a row, return 1 or 2 depending on which player.
-            Otherwise, return 0. """
+    def check_horizontal(self):
+        """Check if a player has connected a row horizontally."""
 
         for x in range(self.board_rows):
             player1_score = 0
@@ -69,6 +66,11 @@ class OxoBoard:
                     player2_score = 0
                 if player2_score == self.board_columns:
                     return 2
+
+        return 0
+
+    def check_diagonal(self):
+        """Check if a player has connected a row diagonally."""
 
         connected_o_1 = 0
         connected_x_1 = 0
@@ -116,6 +118,11 @@ class OxoBoard:
             if connected_x_2 == self.board_columns:
                 return 2
 
+        return 0
+
+    def check_vertical(self):
+        """Check if a player has connected a row vertically."""
+
         for x in range(self.board_rows):
 
             # check for player 1
@@ -127,6 +134,23 @@ class OxoBoard:
                 return 2
 
         return 0
+
+    def get_winner(self):
+        """ If a player has connected a row, return 1 or 2 depending on which player.
+            Otherwise, return 0. """
+
+        # get results
+        diagonal = self.check_diagonal()
+        vertical = self.check_vertical()
+        horizontal = self.check_horizontal()
+
+        # compare all results
+        if diagonal == 1 or vertical == 1 or horizontal == 1:
+            return 1
+        elif diagonal == 2 or vertical == 2 or horizontal == 2:
+            return 2
+        else:
+            return 0
 
     def show(self):
         """ Display the current board state in the terminal. You should not need to edit this. """
