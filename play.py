@@ -2,7 +2,6 @@ import pygame
 
 import oxo
 
-
 # Initialise PyGame
 pygame.init()
 clock = pygame.time.Clock()
@@ -31,7 +30,8 @@ square_size = window_dims / grid_size
 screen = pygame.display.set_mode(window_size)
 
 # Create the game board
-game_board = oxo.OxoBoard(grid_size)
+game_board = oxo.OxoBoard()
+	# game_board = oxo.OxoBoard(grid_size)    <-- 3 of 3 for making varible size
 
 # If the game is over, game_over_text will be a pygame surface containing the game over text
 # Otherwise it will be None

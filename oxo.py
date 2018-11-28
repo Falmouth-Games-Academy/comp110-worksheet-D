@@ -1,7 +1,9 @@
 class OxoBoard:
-    def __init__(self, size):
+    def __init__(self):
+    # def __init__(self, size)   <-- 1 of 3 to making the code take an size input from play.py
         """ The initialiser. Initialise any fields you need here. """
-        self.size = size
+        self.size = 3
+        # self.size = size    <-- 2 of 3 for variable size input
         self.board = [[0 for x in range(self.size)] for y in range(self.size)]
         '''
          x = 1,2,3
